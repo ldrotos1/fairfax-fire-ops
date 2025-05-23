@@ -36,8 +36,10 @@ STATION_DATA="${SCRIPT_DIR}/data/station_data.csv"
 APPARATUS_TYPE_DATA="${SCRIPT_DIR}/data/apparatus_type_data.csv"
 APPARATUS_DATA="${SCRIPT_DIR}/data/apparatus_data.csv"
 APPARATUS_MODEL_INFO="${SCRIPT_DIR}/data/apparatus_model_info.csv"
+PERSONNEL_DATA="${SCRIPT_DIR}/data/personnel_data.csv"
+STATION_ASSIGNMENTS_DATA="${SCRIPT_DIR}/data/station_assignments_data.csv"
+COMMAND_ASSIGNMENTS_DATA="${SCRIPT_DIR}/data/command_assignments_data.csv"
 CREATE_STATION_GEO_FILE="${SCRIPT_DIR}/sql/create_station_geo.sql"
-USER_ACCOUNT_DATA="${SCRIPT_DIR}/sql/populate_user_account_tables.sql"
 
 echo "Creating database and table schema"
 psql -U "$user" -h "$host" -p "$port" -f "$CREATE_DB_FILE"
@@ -72,6 +74,24 @@ APPARATUS_MODEL_INFO=$(echo "$APPARATUS_MODEL_INFO" | tr / \\\\)
 APPARATUS_MODEL_INFO="c:$(echo "$APPARATUS_MODEL_INFO" | cut -c 3-)"
 psql -U "$user" -h "$host" -p "$port" -d ffx-fire-ops \
   -c "\\copy ffx_fire_ops.apparatus_model_info from '$APPARATUS_MODEL_INFO' WITH DELIMITER ',' CSV;"
+
+echo "Loading station assignments data"
+STATION_ASSIGNMENTS_DATA=$(echo "$STATION_ASSIGNMENTS_DATA" | tr / \\\\)
+STATION_ASSIGNMENTS_DATA="c:$(echo "$STATION_ASSIGNMENTS_DATA" | cut -c 3-)"
+psql -U "$user" -h "$host" -p "$port" -d ffx-fire-ops \
+  -c "\\copy ffx_fire_ops.station_assignments from '$STATION_ASSIGNMENTS_DATA' WITH DELIMITER ',' CSV;"
+
+echo "Loading personnel data"
+PERSONNEL_DATA=$(echo "$PERSONNEL_DATA" | tr / \\\\)
+PERSONNEL_DATA="c:$(echo "$PERSONNEL_DATA" | cut -c 3-)"
+psql -U "$user" -h "$host" -p "$port" -d ffx-fire-ops \
+  -c "\\copy ffx_fire_ops.personnel from '$PERSONNEL_DATA' WITH DELIMITER ',' CSV;"
+
+echo "Loading command assignments data"
+COMMAND_ASSIGNMENTS_DATA=$(echo "$COMMAND_ASSIGNMENTS_DATA" | tr / \\\\)
+COMMAND_ASSIGNMENTS_DATA="c:$(echo "$COMMAND_ASSIGNMENTS_DATA" | cut -c 3-)"
+psql -U "$user" -h "$host" -p "$port" -d ffx-fire-ops \
+  -c "\\copy ffx_fire_ops.command_assignments from '$COMMAND_ASSIGNMENTS_DATA' WITH DELIMITER ',' CSV;"
 
 echo "Creating station location point geometries"
 psql -U "$user" -h "$host" -p "$port" -d ffx-fire-ops -f "$CREATE_STATION_GEO_FILE"

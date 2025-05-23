@@ -105,3 +105,44 @@ CREATE TABLE ffx_fire_ops.apparatus_model_info
         ON UPDATE NO ACTION
         ON DELETE CASCADE
 );
+
+-- Create the station assignments table --
+CREATE TABLE ffx_fire_ops.station_assignments
+(
+    id integer NOT NULL,
+    station_designator integer NOT NULL,
+    shift character varying(30) NOT NULL,
+    PRIMARY KEY (id)
+);
+
+-- Create the personnel table --
+CREATE TABLE ffx_fire_ops.personnel
+(
+    emp_id integer NOT NULL,
+    first_name text NOT NULL,
+    last_name text NOT NULL,
+    rank character varying(30) NOT NULL,
+    ems_level character varying(15) NOT NULL,
+    station_assignment_id integer,
+    PRIMARY KEY (emp_id),
+    CONSTRAINT station_assignment_id_fk FOREIGN KEY (station_assignment_id)
+        REFERENCES ffx_fire_ops.station_assignments (id) MATCH SIMPLE
+            ON UPDATE CASCADE
+            ON DELETE NO ACTION    
+);
+
+-- Create the command assignments table --
+CREATE TABLE ffx_fire_ops.command_assignments
+(
+    id integer NOT NULL,
+    assignment text NOT NULL,
+    station_designator integer NOT NULL,
+    shift character varying(30) NOT NULL,
+    description text NOT NULL,
+    person_id integer NOT NULL,
+    PRIMARY KEY (id),
+    CONSTRAINT person_id_fk FOREIGN KEY (person_id)
+        REFERENCES ffx_fire_ops.personnel (emp_id) MATCH SIMPLE
+            ON UPDATE NO ACTION
+            ON DELETE NO ACTION  
+);
