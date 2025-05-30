@@ -1,0 +1,7 @@
+
+.vscode/
+app/.gradle
+app/build
+app/*/build
+app/*/gradle
+app/*/.gradle
