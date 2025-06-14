@@ -1,4 +1,4 @@
-INSERT INTO ffx_fire_ops.first_due_area (station_designator, first_due_area)
+INSERT INTO ffx_fire_ops.first_due_area (station_number, first_due_area)
 VALUES (413, ST_GeomFromGeoJSON('{
     "type": "Polygon",
     "coordinates": [
