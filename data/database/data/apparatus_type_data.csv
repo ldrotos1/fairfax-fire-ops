@@ -1,3 +1,4 @@
+id,type,category,image,max_staff,min_staff_ff,min_staff_tech,min_staff_officer,min_staff_command,paramedic_required,is_cross_staffed,vol_staffed
 1,Ambulance,Medical,ambulance,4,2,0,0,0,FALSE,FALSE,TRUE
 2,Ambulance Bus,Medical,ambulance_bus,5,0,0,0,0,FALSE,TRUE,FALSE
 3,Battalion Chief,Command,battalion_chief,2,0,0,0,1,FALSE,FALSE,FALSE
@@ -29,3 +30,4 @@
 29,Truck (Tiller),Aerial,tiller,6,3,0,0,0,TRUE,FALSE,FALSE
 30,Utility,Support,utility,2,0,0,0,0,FALSE,TRUE,TRUE
 31,Volunteer Chief,Command,vol_chief,2,0,0,0,1,FALSE,FALSE,TRUE
+32,Deputy Chief,Command,dep_chief,4,0,0,0,1,FALSE,FALSE,FALSE
