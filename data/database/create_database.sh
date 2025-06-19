@@ -31,14 +31,13 @@ user=${conn_info[2]}
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 CREATE_DB_FILE="${SCRIPT_DIR}/sql/create_database.sql"
 CREATE_TABLES_FILE="${SCRIPT_DIR}/sql/create_table_schema.sql"
-DEPARTMENT_DATA="${SCRIPT_DIR}/data/depart_data.csv"
-STATION_DATA="${SCRIPT_DIR}/data/station_data.csv"
-APPARATUS_TYPE_DATA="${SCRIPT_DIR}/data/apparatus_type_data.csv"
-APPARATUS_DATA="${SCRIPT_DIR}/data/apparatus_data.csv"
-APPARATUS_MODEL_INFO="${SCRIPT_DIR}/data/apparatus_model_info.csv"
-PERSONNEL_DATA="${SCRIPT_DIR}/data/personnel_data.csv"
-STATION_ASSIGNMENTS_DATA="${SCRIPT_DIR}/data/station_assignments_data.csv"
-COMMAND_ASSIGNMENTS_DATA="${SCRIPT_DIR}/data/command_assignments_data.csv"
+DEPARTMENT_DATA="${SCRIPT_DIR}/datasets/depart_data.csv"
+COUNTY_STATION_DATA="${SCRIPT_DIR}/datasets/county_station_data.csv"
+COUNTY_APPARATUS_DATA="${SCRIPT_DIR}/datasets/county_apparatus_data.csv"
+APPARATUS_TYPE_DATA="${SCRIPT_DIR}/datasets/apparatus_type_data.csv"
+PERSONNEL_DATA="${SCRIPT_DIR}/datasets/personnel_data.csv"
+STATION_ASSIGNMENTS_DATA="${SCRIPT_DIR}/datasets/station_assignments_data.csv"
+COMMAND_ASSIGNMENTS_DATA="${SCRIPT_DIR}/datasets/command_assignments_data.csv"
 CREATE_STATION_GEO_FILE="${SCRIPT_DIR}/sql/create_station_geo.sql"
 
 echo "Creating database and table schema"
@@ -52,10 +51,10 @@ psql -U "$user" -h "$host" -p "$port" -d ffx-fire-ops \
   -c "\\copy ffx_fire_ops.department from '$DEPARTMENT_DATA' WITH DELIMITER ',' CSV;"
 
 echo "Loading station data"
-STATION_DATA=$(echo "$STATION_DATA" | tr / \\\\)
-STATION_DATA="c:$(echo "$STATION_DATA" | cut -c 3-)"
+COUNTY_STATION_DATA=$(echo "$COUNTY_STATION_DATA" | tr / \\\\)
+COUNTY_STATION_DATA="c:$(echo "$COUNTY_STATION_DATA" | cut -c 3-)"
 psql -U "$user" -h "$host" -p "$port" -d ffx-fire-ops \
-  -c "\\copy ffx_fire_ops.station from '$STATION_DATA' WITH DELIMITER ',' CSV;"
+  -c "\\copy ffx_fire_ops.county_station from '$COUNTY_STATION_DATA' WITH DELIMITER ',' CSV;"
 
 echo "Loading apparatus type data"
 APPARATUS_TYPE_DATA=$(echo "$APPARATUS_TYPE_DATA" | tr / \\\\)
@@ -64,16 +63,10 @@ psql -U "$user" -h "$host" -p "$port" -d ffx-fire-ops \
   -c "\\copy ffx_fire_ops.apparatus_type from '$APPARATUS_TYPE_DATA' WITH DELIMITER ',' CSV;"
 
 echo "Loading apparatus data"
-APPARATUS_DATA=$(echo "$APPARATUS_DATA" | tr / \\\\)
-APPARATUS_DATA="c:$(echo "$APPARATUS_DATA" | cut -c 3-)"
+COUNTY_APPARATUS_DATA=$(echo "$COUNTY_APPARATUS_DATA" | tr / \\\\)
+COUNTY_APPARATUS_DATA="c:$(echo "$COUNTY_APPARATUS_DATA" | cut -c 3-)"
 psql -U "$user" -h "$host" -p "$port" -d ffx-fire-ops \
-  -c "\\copy ffx_fire_ops.apparatus from '$APPARATUS_DATA' WITH DELIMITER ',' CSV;"
-
-echo "Loading apparatus model info"
-APPARATUS_MODEL_INFO=$(echo "$APPARATUS_MODEL_INFO" | tr / \\\\)
-APPARATUS_MODEL_INFO="c:$(echo "$APPARATUS_MODEL_INFO" | cut -c 3-)"
-psql -U "$user" -h "$host" -p "$port" -d ffx-fire-ops \
-  -c "\\copy ffx_fire_ops.apparatus_model_info from '$APPARATUS_MODEL_INFO' WITH DELIMITER ',' CSV;"
+  -c "\\copy ffx_fire_ops.county_apparatus from '$COUNTY_APPARATUS_DATA' WITH DELIMITER ',' CSV;"
 
 echo "Loading station assignments data"
 STATION_ASSIGNMENTS_DATA=$(echo "$STATION_ASSIGNMENTS_DATA" | tr / \\\\)

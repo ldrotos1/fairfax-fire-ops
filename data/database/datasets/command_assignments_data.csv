@@ -1,4 +1,3 @@
-command_id,assignment,station,shift,description,person_id
 101,BC401,425,A,Battalion Chief,10034
 102,BC401,425,B,Battalion Chief,10041
 103,BC401,425,C,Battalion Chief,10048
@@ -56,9 +55,9 @@ command_id,assignment,station,shift,description,person_id
 155,SAF403,413,A,Safety Officer,10022
 156,SAF403,413,B,Safety Officer,10025
 157,SAF403,413,C,Safety Officer,10028
-122,DC401,421,A,Deputy Chief,11114
-123,DC401,421,B,Deputy Chief,11115
-124,DC401,421,C,Deputy Chief,11116
-122,DC402,437,A,Deputy Chief,11117
-123,DC402,437,B,Deputy Chief,11118
-124,DC402,437,C,Deputy Chief,11119
+158,DC401,421,A,Deputy Chief,11114
+159,DC401,421,B,Deputy Chief,11115
+160,DC401,421,C,Deputy Chief,11116
+161,DC402,437,A,Deputy Chief,11117
+162,DC402,437,B,Deputy Chief,11118
+163,DC402,437,C,Deputy Chief,11119

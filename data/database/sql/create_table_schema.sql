@@ -9,30 +9,35 @@ CREATE EXTENSION postgis;
 CREATE TABLE ffx_fire_ops.department
 (
     dept_id integer,
-    dept_full_name text NOT NULL,
-    dept_short_name text NOT NULL,
-    dept_abbreviation character varying(6) NOT NULL,
+    dept_full_name text NOT NULL UNIQUE,
+    dept_short_name text NOT NULL UNIQUE,
+    dept_abbreviation character varying(6) NOT NULL UNIQUE,
     dept_border geometry(Polygon,4326),
     PRIMARY KEY (dept_id)
 );
 
 -- Create the station table --
-CREATE TABLE ffx_fire_ops.station
+CREATE TABLE ffx_fire_ops.county_station
 (
-    station_number integer,
-    station_name text NOT NULL,
+    station_id integer,
+    station_number integer NOT NULL UNIQUE,
+    station_name text NOT NULL UNIQUE,
     battalion integer NOT NULL,
     is_volunteer boolean NOT NULL DEFAULT False,
-    phone_number character varying(12) NOT NULL,
-    address text NOT NULL,
+    phone_number character varying(12) NOT NULL UNIQUE,
+    address text NOT NULL UNIQUE,
     city text NOT NULL,
     state text NOT NULL,
     zip integer NOT NULL,
 	department_id integer,
     lat double precision NOT NULL,
     lon double precision NOT NULL,
-    location geometry(Point,4326) DEFAULT NULL,
-    PRIMARY KEY (station_number),
+    density text NOT NULL,
+    special_ops text NOT NULL,
+    is_battalion_hq boolean NOT NULL DEFAULT False,
+    is_division_hq boolean NOT NULL DEFAULT False,
+    location geometry(Point,4326) DEFAULT NULL UNIQUE,
+    PRIMARY KEY (station_id),
     CONSTRAINT dept_fk FOREIGN KEY (department_id)
         REFERENCES ffx_fire_ops.department (dept_id) MATCH SIMPLE
         ON UPDATE NO ACTION
@@ -42,11 +47,11 @@ CREATE TABLE ffx_fire_ops.station
 -- Create the station first due area table --
 CREATE TABLE ffx_fire_ops.first_due_area
 (
-    station_number integer,
+    station_id integer,
     first_due_area geometry(Polygon,4326) NOT NULL,
-    PRIMARY KEY (station_number),
-    CONSTRAINT station_fk FOREIGN KEY (station_number)
-        REFERENCES ffx_fire_ops.station (station_number) MATCH SIMPLE
+    PRIMARY KEY (station_id),
+    CONSTRAINT station_fk FOREIGN KEY (station_id)
+        REFERENCES ffx_fire_ops.county_station (station_id) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE CASCADE
 );
@@ -55,9 +60,9 @@ CREATE TABLE ffx_fire_ops.first_due_area
 CREATE TABLE ffx_fire_ops.apparatus_type
 (
     apparatus_type_id integer,
-    apparatus_type character varying(35) NOT NULL,
+    apparatus_type character varying(35) NOT NULL UNIQUE,
     apparatus_category character varying(30) NOT NULL,
-    apparatus_image character varying(30) NOT NULL,
+    apparatus_image character varying(30) NOT NULL UNIQUE,
     max_staff integer NOT NULL,
     min_staff_ff integer NOT NULL,
     min_staff_tech integer NOT NULL,
@@ -70,20 +75,23 @@ CREATE TABLE ffx_fire_ops.apparatus_type
 );
 
 -- Create the apparatus table --
-CREATE TABLE ffx_fire_ops.apparatus
+CREATE TABLE ffx_fire_ops.county_apparatus
 (
     unit_designator character varying(12) NOT NULL,
     apparatus_type_id integer NOT NULL,
-    station_number integer NOT NULL,
+    station_id integer NOT NULL,
     dept_id integer NOT NULL,
     is_reserved boolean NOT NULL DEFAULT False,
+    year integer,
+    make text,
+    model text,
     PRIMARY KEY (unit_designator),
     CONSTRAINT dept_id_fk FOREIGN KEY (dept_id)
         REFERENCES ffx_fire_ops.department (dept_id) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE CASCADE,
-    CONSTRAINT station_desig_fk FOREIGN KEY (station_number)
-        REFERENCES ffx_fire_ops.station (station_number) MATCH SIMPLE
+    CONSTRAINT station_desig_fk FOREIGN KEY (station_id)
+        REFERENCES ffx_fire_ops.county_station (station_id) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE SET NULL,
     CONSTRAINT apparatus_type_id_fk FOREIGN KEY (apparatus_type_id)
@@ -92,25 +100,11 @@ CREATE TABLE ffx_fire_ops.apparatus
         ON DELETE CASCADE
 );
 
--- Create the apparatus table --
-CREATE TABLE ffx_fire_ops.apparatus_model_info
-(
-    unit_designator character varying(12) NOT NULL,
-    year integer,
-    make character varying(40),
-    model character varying(40),
-    PRIMARY KEY (unit_designator),
-    CONSTRAINT unit_designator_fk FOREIGN KEY (unit_designator)
-        REFERENCES ffx_fire_ops.apparatus (unit_designator) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE CASCADE
-);
-
 -- Create the station assignments table --
 CREATE TABLE ffx_fire_ops.station_assignments
 (
     id integer NOT NULL,
-    station_number integer NOT NULL,
+    station_id integer NOT NULL,
     shift character varying(30) NOT NULL,
     PRIMARY KEY (id)
 );
@@ -136,7 +130,7 @@ CREATE TABLE ffx_fire_ops.command_assignments
 (
     id integer NOT NULL,
     assignment text NOT NULL,
-    station_number integer NOT NULL,
+    station_id integer NOT NULL,
     shift character varying(30) NOT NULL,
     description text NOT NULL,
     person_id integer NOT NULL,
