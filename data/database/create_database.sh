@@ -38,6 +38,7 @@ APPARATUS_TYPE_DATA="${SCRIPT_DIR}/datasets/apparatus_type_data.csv"
 PERSONNEL_DATA="${SCRIPT_DIR}/datasets/personnel_data.csv"
 STATION_ASSIGNMENTS_DATA="${SCRIPT_DIR}/datasets/station_assignments_data.csv"
 COMMAND_ASSIGNMENTS_DATA="${SCRIPT_DIR}/datasets/command_assignments_data.csv"
+STATION_SHIFTS_DATA="${SCRIPT_DIR}/datasets/station_shifts_data.csv"
 CREATE_STATION_GEO_FILE="${SCRIPT_DIR}/sql/create_station_geo.sql"
 
 echo "Creating database and table schema"
@@ -68,17 +69,23 @@ COUNTY_APPARATUS_DATA="c:$(echo "$COUNTY_APPARATUS_DATA" | cut -c 3-)"
 psql -U "$user" -h "$host" -p "$port" -d ffx-fire-ops \
   -c "\\copy ffx_fire_ops.county_apparatus from '$COUNTY_APPARATUS_DATA' WITH DELIMITER ',' CSV;"
 
+echo "Loading personnel data"
+PERSONNEL_DATA=$(echo "$PERSONNEL_DATA" | tr / \\\\)
+PERSONNEL_DATA="c:$(echo "$PERSONNEL_DATA" | cut -c 3-)"
+psql -U "$user" -h "$host" -p "$port" -d ffx-fire-ops \
+  -c "\\copy ffx_fire_ops.personnel from '$PERSONNEL_DATA' WITH DELIMITER ',' CSV;"
+
 echo "Loading station assignments data"
 STATION_ASSIGNMENTS_DATA=$(echo "$STATION_ASSIGNMENTS_DATA" | tr / \\\\)
 STATION_ASSIGNMENTS_DATA="c:$(echo "$STATION_ASSIGNMENTS_DATA" | cut -c 3-)"
 psql -U "$user" -h "$host" -p "$port" -d ffx-fire-ops \
   -c "\\copy ffx_fire_ops.station_assignments from '$STATION_ASSIGNMENTS_DATA' WITH DELIMITER ',' CSV;"
 
-echo "Loading personnel data"
-PERSONNEL_DATA=$(echo "$PERSONNEL_DATA" | tr / \\\\)
-PERSONNEL_DATA="c:$(echo "$PERSONNEL_DATA" | cut -c 3-)"
-psql -U "$user" -h "$host" -p "$port" -d ffx-fire-ops \
-  -c "\\copy ffx_fire_ops.personnel from '$PERSONNEL_DATA' WITH DELIMITER ',' CSV;"
+echo "Loading station shift data"
+STATION_SHIFTS_DATA=$(echo "$STATION_SHIFT_DATA" | tr / \\\\)
+STATION_SHIFTS_DATA="c:$(echo "$STATION_SHIFT_DATA" | cut -c 3-)"
+psql -U "$user" -h "$host" -p "$port" -d ffx-fire-ops \ 
+  -c "\\copy ffx_fire_ops.station_shifts from '$STATION_SHIFTS_DATA' WITH DELIMITER ',' CSV;"
 
 echo "Loading command assignments data"
 COMMAND_ASSIGNMENTS_DATA=$(echo "$COMMAND_ASSIGNMENTS_DATA" | tr / \\\\)
