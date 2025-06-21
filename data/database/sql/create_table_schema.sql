@@ -100,15 +100,6 @@ CREATE TABLE ffx_fire_ops.county_apparatus
         ON DELETE CASCADE
 );
 
--- Create the station assignments table --
-CREATE TABLE ffx_fire_ops.station_assignments
-(
-    id integer NOT NULL,
-    station_id integer NOT NULL,
-    shift character varying(30) NOT NULL,
-    PRIMARY KEY (id)
-);
-
 -- Create the personnel table --
 CREATE TABLE ffx_fire_ops.personnel
 (
@@ -117,12 +108,7 @@ CREATE TABLE ffx_fire_ops.personnel
     last_name text NOT NULL,
     rank character varying(30) NOT NULL,
     ems_level character varying(15) NOT NULL,
-    station_assignment_id integer,
-    PRIMARY KEY (emp_id),
-    CONSTRAINT station_assignment_id_fk FOREIGN KEY (station_assignment_id)
-        REFERENCES ffx_fire_ops.station_assignments (id) MATCH SIMPLE
-            ON UPDATE CASCADE
-            ON DELETE NO ACTION    
+    PRIMARY KEY (emp_id)    
 );
 
 -- Create the command assignments table --
@@ -131,12 +117,37 @@ CREATE TABLE ffx_fire_ops.command_assignments
     id integer NOT NULL,
     assignment text NOT NULL,
     station_id integer NOT NULL,
-    shift character varying(30) NOT NULL,
+    shift character varying(1) NOT NULL,
     description text NOT NULL,
     person_id integer NOT NULL,
     PRIMARY KEY (id),
-    CONSTRAINT person_id_fk FOREIGN KEY (person_id)
+    CONSTRAINT person_id_to_emp_id_fk FOREIGN KEY (person_id)
         REFERENCES ffx_fire_ops.personnel (emp_id) MATCH SIMPLE
             ON UPDATE NO ACTION
             ON DELETE NO ACTION  
+);
+
+-- Create the station shifts table --
+CREATE TABLE ffx_fire_ops.station_shifts
+(
+    station_shift_id integer NOT NULL,
+    station_id integer NOT NULL,
+    shift character varying(1) NOT NULL,
+    PRIMARY KEY (station_shift_id)
+);
+
+-- Create the station assignments relationship --
+CREATE TABLE ffx_fire_ops.station_assignments
+(
+    emp_id integer NOT NULL,
+    station_shift_id integer NOT NULL,
+    PRIMARY KEY (emp_id, station_shift_id),
+    CONSTRAINT emp_id_to_emp_id_fk FOREIGN KEY (emp_id)
+        REFERENCES ffx_fire_ops.personnel (emp_id) MATCH SIMPLE
+            ON UPDATE NO ACTION
+            ON DELETE NO ACTION,
+    CONSTRAINT shift_id_to_shift_id_fk FOREIGN KEY (station_shift_id)
+        REFERENCES ffx_fire_ops.station_shifts (station_shift_id) MATCH SIMPLE
+            ON UPDATE NO ACTION
+            ON DELETE NO ACTION 
 );

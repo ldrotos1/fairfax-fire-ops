@@ -1,4 +1,3 @@
-emp_id,first_name,last_name,rank,ems_level
 10139,Marc,Sanchez,Lieutenant,Advanced EMT
 10177,Ted,Mcgee,Captain II,Paramedic
 10195,Lukas,Pena,Fighterfighter,Paramedic
@@ -1112,8 +1111,8 @@ emp_id,first_name,last_name,rank,ems_level
 11111,Mike,Wilson,Captain I,Paramedic
 11112,Brian,Smith,Captain I,Paramedic
 11113,Jon,Mayment,Captain I,Paramedic
-11114,Ollie ,Brock,Deputy Chief,Basic EMT
-11115,Lance ,Ortiz,Deputy Chief,Advanced EMT
+11114,Ollieï¿½,Brock,Deputy Chief,Basic EMT
+11115,Lanceï¿½,Ortiz,Deputy Chief,Advanced EMT
 11116,Bobbi,Hogan,Deputy Chief,Basic EMT
 11117,Emanuel,Cantrell,Deputy Chief,Basic EMT
 11118,Ed,Rivera,Deputy Chief,Advanced EMT

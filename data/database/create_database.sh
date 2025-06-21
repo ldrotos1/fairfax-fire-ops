@@ -75,23 +75,23 @@ PERSONNEL_DATA="c:$(echo "$PERSONNEL_DATA" | cut -c 3-)"
 psql -U "$user" -h "$host" -p "$port" -d ffx-fire-ops \
   -c "\\copy ffx_fire_ops.personnel from '$PERSONNEL_DATA' WITH DELIMITER ',' CSV;"
 
-echo "Loading station assignments data"
-STATION_ASSIGNMENTS_DATA=$(echo "$STATION_ASSIGNMENTS_DATA" | tr / \\\\)
-STATION_ASSIGNMENTS_DATA="c:$(echo "$STATION_ASSIGNMENTS_DATA" | cut -c 3-)"
-psql -U "$user" -h "$host" -p "$port" -d ffx-fire-ops \
-  -c "\\copy ffx_fire_ops.station_assignments from '$STATION_ASSIGNMENTS_DATA' WITH DELIMITER ',' CSV;"
-
-echo "Loading station shift data"
-STATION_SHIFTS_DATA=$(echo "$STATION_SHIFT_DATA" | tr / \\\\)
-STATION_SHIFTS_DATA="c:$(echo "$STATION_SHIFT_DATA" | cut -c 3-)"
-psql -U "$user" -h "$host" -p "$port" -d ffx-fire-ops \ 
-  -c "\\copy ffx_fire_ops.station_shifts from '$STATION_SHIFTS_DATA' WITH DELIMITER ',' CSV;"
-
 echo "Loading command assignments data"
 COMMAND_ASSIGNMENTS_DATA=$(echo "$COMMAND_ASSIGNMENTS_DATA" | tr / \\\\)
 COMMAND_ASSIGNMENTS_DATA="c:$(echo "$COMMAND_ASSIGNMENTS_DATA" | cut -c 3-)"
 psql -U "$user" -h "$host" -p "$port" -d ffx-fire-ops \
   -c "\\copy ffx_fire_ops.command_assignments from '$COMMAND_ASSIGNMENTS_DATA' WITH DELIMITER ',' CSV;"
+
+echo "Loading station shift data"
+STATION_SHIFTS_DATA=$(echo "$STATION_SHIFTS_DATA" | tr / \\\\)
+STATION_SHIFTS_DATA="c:$(echo "$STATION_SHIFTS_DATA" | cut -c 3-)"
+psql -U "$user" -h "$host" -p "$port" -d ffx-fire-ops \
+  -c "\\copy ffx_fire_ops.station_shifts from '$STATION_SHIFTS_DATA' WITH DELIMITER ',' CSV;"
+
+echo "Loading station assignments data"
+STATION_ASSIGNMENTS_DATA=$(echo "$STATION_ASSIGNMENTS_DATA" | tr / \\\\)
+STATION_ASSIGNMENTS_DATA="c:$(echo "$STATION_ASSIGNMENTS_DATA" | cut -c 3-)"
+psql -U "$user" -h "$host" -p "$port" -d ffx-fire-ops \
+  -c "\\copy ffx_fire_ops.station_assignments from '$STATION_ASSIGNMENTS_DATA' WITH DELIMITER ',' CSV;"
 
 echo "Creating station location point geometries"
 psql -U "$user" -h "$host" -p "$port" -d ffx-fire-ops -f "$CREATE_STATION_GEO_FILE"
