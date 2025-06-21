@@ -19,10 +19,11 @@ CREATE TABLE ffx_fire_ops.department
 -- Create the station table --
 CREATE TABLE ffx_fire_ops.county_station
 (
-    station_id integer,
+    station_designator integer,
     station_number integer NOT NULL UNIQUE,
     station_name text NOT NULL UNIQUE,
     battalion integer NOT NULL,
+    division integer NOT NULL,
     is_volunteer boolean NOT NULL DEFAULT False,
     phone_number character varying(12) NOT NULL UNIQUE,
     address text NOT NULL UNIQUE,
@@ -37,7 +38,7 @@ CREATE TABLE ffx_fire_ops.county_station
     is_battalion_hq boolean NOT NULL DEFAULT False,
     is_division_hq boolean NOT NULL DEFAULT False,
     location geometry(Point,4326) DEFAULT NULL UNIQUE,
-    PRIMARY KEY (station_id),
+    PRIMARY KEY (station_designator),
     CONSTRAINT dept_fk FOREIGN KEY (department_id)
         REFERENCES ffx_fire_ops.department (dept_id) MATCH SIMPLE
         ON UPDATE NO ACTION
@@ -47,11 +48,11 @@ CREATE TABLE ffx_fire_ops.county_station
 -- Create the station first due area table --
 CREATE TABLE ffx_fire_ops.first_due_area
 (
-    station_id integer,
+    station_designator integer,
     first_due_area geometry(Polygon,4326) NOT NULL,
-    PRIMARY KEY (station_id),
-    CONSTRAINT station_fk FOREIGN KEY (station_id)
-        REFERENCES ffx_fire_ops.county_station (station_id) MATCH SIMPLE
+    PRIMARY KEY (station_designator),
+    CONSTRAINT station_fk FOREIGN KEY (station_designator)
+        REFERENCES ffx_fire_ops.county_station (station_designator) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE CASCADE
 );
@@ -79,7 +80,7 @@ CREATE TABLE ffx_fire_ops.county_apparatus
 (
     unit_designator character varying(12) NOT NULL,
     apparatus_type_id integer NOT NULL,
-    station_id integer NOT NULL,
+    station_designator integer NOT NULL,
     dept_id integer NOT NULL,
     is_reserved boolean NOT NULL DEFAULT False,
     year integer,
@@ -90,8 +91,8 @@ CREATE TABLE ffx_fire_ops.county_apparatus
         REFERENCES ffx_fire_ops.department (dept_id) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE CASCADE,
-    CONSTRAINT station_desig_fk FOREIGN KEY (station_id)
-        REFERENCES ffx_fire_ops.county_station (station_id) MATCH SIMPLE
+    CONSTRAINT station_desig_fk FOREIGN KEY (station_designator)
+        REFERENCES ffx_fire_ops.county_station (station_designator) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE SET NULL,
     CONSTRAINT apparatus_type_id_fk FOREIGN KEY (apparatus_type_id)
@@ -116,7 +117,7 @@ CREATE TABLE ffx_fire_ops.command_assignments
 (
     id integer NOT NULL,
     assignment text NOT NULL,
-    station_id integer NOT NULL,
+    station_designator integer NOT NULL,
     shift character varying(1) NOT NULL,
     description text NOT NULL,
     person_id integer NOT NULL,
@@ -131,7 +132,7 @@ CREATE TABLE ffx_fire_ops.command_assignments
 CREATE TABLE ffx_fire_ops.station_shifts
 (
     station_shift_id integer NOT NULL,
-    station_id integer NOT NULL,
+    station_designator integer NOT NULL,
     shift character varying(1) NOT NULL,
     PRIMARY KEY (station_shift_id)
 );
