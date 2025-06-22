@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import gov.ffx.fire.ops.resources_service.domain.entities.CountyStationEntity;
 import gov.ffx.fire.ops.resources_service.domain.entities.CountyStationListItemEntity;
-import gov.ffx.fire.ops.resources_service.domain.mappers.CountyStationMapper;
+import gov.ffx.fire.ops.resources_service.domain.mappers.StationMapper;
 import gov.ffx.fire.ops.resources_service.domain.models.CountyStation;
 import gov.ffx.fire.ops.resources_service.domain.models.CountyStationListItem;
 import gov.ffx.fire.ops.resources_service.repositories.CountyStationListItemRepository;
@@ -31,7 +31,7 @@ public class StationService {
    */
   public CountyStation getCountyStation(int stationDesignator) {
     CountyStationEntity stationEntity = countyStationRepo.findByStationDesignator(stationDesignator);
-    return CountyStationMapper.stationEntityToStation(stationEntity);
+    return StationMapper.stationEntityToStation(stationEntity);
   }
 
   /**
@@ -42,7 +42,7 @@ public class StationService {
   public List<CountyStationListItem> getCountyStationList() {
     List<CountyStationListItemEntity> stationItemEntities = countyStationListItemRepository.findAll();
     return stationItemEntities.stream()
-      .map(CountyStationMapper::stationListItemEntityToStationListItem)
+      .map(StationMapper::stationListItemEntityToStationListItem)
       .collect(Collectors.toList());
   }
 }

@@ -1,5 +1,7 @@
 package gov.ffx.fire.ops.resources_service.domain.models;
 
+import java.util.Set;
+
 import lombok.Builder;
 import lombok.Data;
 
@@ -22,4 +24,5 @@ public class CountyStation {
   private String phoneNumber;
   private String density;
   private String specialOps;
+  private Set<CountyStationApparatus> apparatus;
 }

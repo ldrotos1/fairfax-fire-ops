@@ -1,5 +1,7 @@
 package gov.ffx.fire.ops.resources_service.domain.mappers;
 
+import java.util.stream.Collectors;
+
 import org.springframework.stereotype.Component;
 
 import gov.ffx.fire.ops.resources_service.domain.entities.CountyStationEntity;
@@ -8,7 +10,7 @@ import gov.ffx.fire.ops.resources_service.domain.models.CountyStation;
 import gov.ffx.fire.ops.resources_service.domain.models.CountyStationListItem;
 
 @Component
-public class CountyStationMapper {
+public class StationMapper {
 
   /**
    * Converts a {@link CountyStationEntity} to a {@link CountyStation}
@@ -34,6 +36,9 @@ public class CountyStationMapper {
       .phoneNumber(stationEntity.getPhoneNumber())
       .density(stationEntity.getDensity())
       .specialOps(stationEntity.getSpecialOps())
+      .apparatus(stationEntity.getApparatus().stream()
+        .map(ApparatusMapper::apparatusEntityToApparatus)
+        .collect(Collectors.toSet()))
       .build();
   }
 
