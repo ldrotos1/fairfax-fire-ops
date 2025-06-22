@@ -8,12 +8,12 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "station", schema = "ffx_fire_ops")
-public class StationListItemEntity {
+@Table(name = "county_station", schema = "ffx_fire_ops")
+public class CountyStationListItemEntity {
   
   @Id
-  @Column(name = "station_number")
-  private Integer stationNumber;
+  @Column(name = "station_designator")
+  private Integer stationDesignator;
   
   @Column(name = "station_name")
   private String stationName;

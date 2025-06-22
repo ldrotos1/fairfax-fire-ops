@@ -3,26 +3,38 @@ package gov.ffx.fire.ops.resources_service.domain.entities;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "station", schema = "ffx_fire_ops")
-public class StationEntity {
+@Table(name = "county_station", schema = "ffx_fire_ops")
+public class CountyStationEntity {
 
   @Id
+  @Column(name = "station_designator")
+  private Integer stationDesignator;
+  
   @Column(name = "station_number")
   private Integer stationNumber;
-  
+
   @Column(name = "station_name")
   private String stationName;
+
+  @ManyToOne
+  @JoinColumn(name = "department_id", nullable = false, referencedColumnName = "dept_id")
+  private DepartmentEntity department;
   
   @Column(name = "battalion")
   private int battalion;
 
+  @Column(name = "division")
+  private int division;
+
   @Column(name = "is_volunteer")
-  private boolean isVolunteer;
+  private Boolean isVolunteer;
   
   @Column(name = "address")
   private String address;
@@ -38,4 +50,16 @@ public class StationEntity {
   
   @Column(name = "phone_number")
   private String phoneNumber;
+
+  @Column(name = "density")
+  private String density;
+
+  @Column(name = "special_ops")
+  private String specialOps;
+  
+  @Column(name = "is_battalion_hq")
+  private Boolean isBattalionHq;
+ 
+  @Column(name = "is_division_hq")
+  private Boolean isDivisionHq;
 }

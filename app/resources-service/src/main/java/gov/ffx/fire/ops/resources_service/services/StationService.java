@@ -6,43 +6,43 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import gov.ffx.fire.ops.resources_service.domain.entities.StationEntity;
-import gov.ffx.fire.ops.resources_service.domain.entities.StationListItemEntity;
-import gov.ffx.fire.ops.resources_service.domain.mappers.StationMapper;
-import gov.ffx.fire.ops.resources_service.domain.models.Station;
-import gov.ffx.fire.ops.resources_service.domain.models.StationListItem;
-import gov.ffx.fire.ops.resources_service.repositories.StationListItemRepository;
-import gov.ffx.fire.ops.resources_service.repositories.StationRepository;
+import gov.ffx.fire.ops.resources_service.domain.entities.CountyStationEntity;
+import gov.ffx.fire.ops.resources_service.domain.entities.CountyStationListItemEntity;
+import gov.ffx.fire.ops.resources_service.domain.mappers.CountyStationMapper;
+import gov.ffx.fire.ops.resources_service.domain.models.CountyStation;
+import gov.ffx.fire.ops.resources_service.domain.models.CountyStationListItem;
+import gov.ffx.fire.ops.resources_service.repositories.CountyStationListItemRepository;
+import gov.ffx.fire.ops.resources_service.repositories.CountyStationRepository;
 
 @Service
 public class StationService {
 
   @Autowired
-  private StationRepository stationRepo;
+  private CountyStationRepository countyStationRepo;
 
   @Autowired
-  private StationListItemRepository stationListItemRepository;
+  private CountyStationListItemRepository countyStationListItemRepository;
 
   /**
-   * Get a single station by station number
+   * Get a single county station by station designator
    * 
-   * @param stationNumber
+   * @param stationDesignator
    * @return The station
    */
-  public Station getStation(int stationNumber) {
-    StationEntity stationEntity = stationRepo.findByStationNumber(stationNumber);
-    return StationMapper.stationEntityToStation(stationEntity);
+  public CountyStation getCountyStation(int stationDesignator) {
+    CountyStationEntity stationEntity = countyStationRepo.findByStationDesignator(stationDesignator);
+    return CountyStationMapper.stationEntityToStation(stationEntity);
   }
 
   /**
-   * Get a list of all stations
+   * Get a list of all county stations
    * 
-   * @return A list of stations
+   * @return A list of county stations
    */
-  public List<StationListItem> getStationList() {
-    List<StationListItemEntity> stationItemEntities = stationListItemRepository.findAll();
+  public List<CountyStationListItem> getCountyStationList() {
+    List<CountyStationListItemEntity> stationItemEntities = countyStationListItemRepository.findAll();
     return stationItemEntities.stream()
-      .map(StationMapper::stationListItemEntityToStationListItem)
+      .map(CountyStationMapper::stationListItemEntityToStationListItem)
       .collect(Collectors.toList());
   }
 }
