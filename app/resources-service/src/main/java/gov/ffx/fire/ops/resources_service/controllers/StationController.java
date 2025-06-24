@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import gov.ffx.fire.ops.resources_service.domain.models.CountyStation;
 import gov.ffx.fire.ops.resources_service.domain.models.CountyStationListItem;
+import gov.ffx.fire.ops.resources_service.exceptions.StationDoesNotExistException;
 import gov.ffx.fire.ops.resources_service.services.StationService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -24,7 +25,7 @@ public class StationController {
 
   @GetMapping(value = "/{stationDesignator}")
   @Operation(summary = "Get a single county station", description = "Get a single county station by its designator")
-  public CountyStation getCountyStation(@PathVariable int stationDesignator) {
+  public CountyStation getCountyStation(@PathVariable int stationDesignator) throws StationDoesNotExistException {
     return stationService.getCountyStation(stationDesignator);
   }
 

@@ -1,6 +1,7 @@
 package gov.ffx.fire.ops.resources_service.services;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import gov.ffx.fire.ops.resources_service.domain.entities.CountyStationListItemE
 import gov.ffx.fire.ops.resources_service.domain.mappers.StationMapper;
 import gov.ffx.fire.ops.resources_service.domain.models.CountyStation;
 import gov.ffx.fire.ops.resources_service.domain.models.CountyStationListItem;
+import gov.ffx.fire.ops.resources_service.exceptions.StationDoesNotExistException;
 import gov.ffx.fire.ops.resources_service.repositories.CountyStationListItemRepository;
 import gov.ffx.fire.ops.resources_service.repositories.CountyStationRepository;
 
@@ -28,10 +30,11 @@ public class StationService {
    * 
    * @param stationDesignator
    * @return The station
+   * @throws StationDoesNotExistException 
    */
-  public CountyStation getCountyStation(int stationDesignator) {
-    CountyStationEntity stationEntity = countyStationRepo.findByStationDesignator(stationDesignator);
-    return StationMapper.stationEntityToStation(stationEntity);
+  public CountyStation getCountyStation(int stationDesignator) throws StationDoesNotExistException {
+    Optional<CountyStationEntity> stationEntity = countyStationRepo.findByStationDesignator(stationDesignator);
+    return StationMapper.stationEntityToStation(stationEntity.orElseThrow(() -> new StationDoesNotExistException(stationDesignator)));
   }
 
   /**
