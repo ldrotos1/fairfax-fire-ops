@@ -14,6 +14,8 @@ import gov.ffx.fire.ops.resources_service.exceptions.StationDoesNotExistExceptio
 import gov.ffx.fire.ops.resources_service.services.StationService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 
 @RestController
 @RequestMapping(value = "/station", produces = "application/json")
@@ -25,7 +27,7 @@ public class StationController {
 
   @GetMapping(value = "/{stationDesignator}")
   @Operation(summary = "Get a single county station", description = "Get a single county station by its designator")
-  public CountyStation getCountyStation(@PathVariable int stationDesignator) throws StationDoesNotExistException {
+  public CountyStation getCountyStation(@PathVariable @Min(401) @Max(444) Integer stationDesignator) throws StationDoesNotExistException {
     return stationService.getCountyStation(stationDesignator);
   }
 
