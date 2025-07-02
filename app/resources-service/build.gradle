@@ -33,8 +33,16 @@ dependencies {
 	runtimeOnly 'com.h2database:h2:2.3.232'
 	runtimeOnly 'org.postgresql:postgresql:42.7.5'
 	annotationProcessor 'org.projectlombok:lombok:1.18.38'
+	
 	testImplementation 'org.springframework.boot:spring-boot-starter-test:3.5.0'
+	testImplementation 'org.mockito:mockito-core:5.18.0'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.12.2'
+}
+
+test {
+	testLogging {
+		events = ["passed", "failed", "skipped"]
+	}
 }
 
 tasks.named('test') {
