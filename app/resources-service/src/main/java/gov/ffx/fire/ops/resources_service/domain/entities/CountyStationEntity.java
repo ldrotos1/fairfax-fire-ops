@@ -11,10 +11,12 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import lombok.Builder;
 import lombok.Data;
 
 @Data
 @Entity
+@Builder
 @Table(name = "county_station", schema = "ffx_fire_ops")
 public class CountyStationEntity {
 

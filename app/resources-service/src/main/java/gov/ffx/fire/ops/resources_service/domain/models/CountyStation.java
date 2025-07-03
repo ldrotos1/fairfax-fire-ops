@@ -14,7 +14,7 @@ public class CountyStation {
   private String department;
   private int battalion;
   private int division;
-  private boolean isVolunteer;
+  private Boolean isVolunteer;
   private Boolean isBattalionHq;
   private Boolean isDivisionHq;
   private String address;

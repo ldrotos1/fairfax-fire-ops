@@ -41,7 +41,7 @@ dependencies {
 
 test {
 	testLogging {
-		events = ["passed", "failed", "skipped"]
+		events = ["passed", "failed", "skipped", "standardError"]
 	}
 }
 

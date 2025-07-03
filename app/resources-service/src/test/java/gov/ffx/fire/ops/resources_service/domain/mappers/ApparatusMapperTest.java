@@ -21,9 +21,8 @@ public class ApparatusMapperTest {
 
   @BeforeEach
   void setup() {
-    stationApparatus = null;
     apparatusEntity = CountyApparatusEntity.builder()
-      .unitDesignator("123")
+      .unitDesignator("A123")
       .year(1999)
       .make("Ford")
       .model("Fire Engine")
@@ -41,7 +40,7 @@ public class ApparatusMapperTest {
   
     stationApparatus = ApparatusMapper.apparatusEntityToApparatus(apparatusEntity);
     assertAll("Apparatus entity mapped to apparatus", 
-      () -> assertEquals("123", stationApparatus.getUnitDesignator(), "Station designator not mapped correctly"),
+      () -> assertEquals("A123", stationApparatus.getUnitDesignator(), "Unit designator not mapped correctly"),
       () -> assertEquals("Engine", stationApparatus.getApparatusType(), "Apparatus type not mapped correctly"),
       () -> assertEquals("Suppression", stationApparatus.getApparatusCategory(), "Apparatus category not mapped correctly"),
       () -> assertEquals(1999, stationApparatus.getYear(), "Year not mapped correctly"),
