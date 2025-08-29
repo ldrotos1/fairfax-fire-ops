@@ -1,0 +1,11 @@
+{
+  "unitDesignator":"E408",
+  "apparatusType": {
+    "apparatusType":"Engine",
+    "apparatusCategory": "Suppression"
+  },
+  "year":2023,
+  "make": "Ford",
+  "model": "Fire Engine",
+  "isReserved": false
+}

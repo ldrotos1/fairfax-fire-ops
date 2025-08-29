@@ -1,0 +1,44 @@
+{
+  "stationDesignator": 401,
+  "stationNumber": 1,
+  "stationName": "Sample Fire Station",
+  "battalion": 401,
+  "division": 400,
+  "isVolunteer": true,
+  "phoneNumber": "70355599663",
+  "address": "123 Main St",
+  "city": "Anytown",
+  "state": "VA",
+  "zipCode": "12345",
+  "department":   {
+    "departmentId": 1,
+    "departmentFullName": "Fire Department",
+    "departmentShortName": "FD",
+    "departmentAbbreviation": "FDEMS"
+  },
+  "density": "Urban",
+  "specialOps": "Water Rescue",
+  "isBattalionHq": false,
+  "isDivisionHq": true,
+  "apparatus": [{
+    "unitDesignator": "E401", 
+    "year": 2001,
+    "make": "Ford",
+    "model": "Fire Engine",
+    "isReserved": false,
+    "apparatusType": {
+      "apparatusTypeId": 1,
+      "apparatusType": "Engine",
+      "apparatusCategory": "Supression",
+      "apparatusImage": "image1.jpg",
+      "maxStaff": 10,
+      "minFirefighterStaff": 5,
+      "minTechnicianStaff": 2,
+      "minOfficerStaff": 1,
+      "minCommandStaff": 1,
+      "isParamedicRequired": true,
+      "isCrossStaffed": false,
+      "isVolunteerStaffed": true
+    }
+  }]
+}

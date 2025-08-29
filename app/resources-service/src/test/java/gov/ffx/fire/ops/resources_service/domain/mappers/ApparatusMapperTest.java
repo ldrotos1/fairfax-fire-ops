@@ -9,9 +9,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import gov.ffx.fire.ops.resources_service.domain.entities.ApparatusTypeEntity;
 import gov.ffx.fire.ops.resources_service.domain.entities.CountyApparatusEntity;
 import gov.ffx.fire.ops.resources_service.domain.models.CountyStationApparatus;
+import gov.ffx.fire.ops.resources_service.test_utilities.TestObjectClassLoader;
 
 public class ApparatusMapperTest {
 
@@ -21,17 +21,7 @@ public class ApparatusMapperTest {
 
   @BeforeEach
   void setup() {
-    apparatusEntity = CountyApparatusEntity.builder()
-      .unitDesignator("A123")
-      .year(1999)
-      .make("Ford")
-      .model("Fire Engine")
-      .isReserved(false)
-      .apparatusType(ApparatusTypeEntity.builder()
-        .apparatusType("Engine")
-        .apparatusCategory("Suppression")
-        .build())
-      .build();
+    apparatusEntity = TestObjectClassLoader.loadClassFromJson("apparatusEntity.json", CountyApparatusEntity.class);
   }
 
   @Test
@@ -40,10 +30,10 @@ public class ApparatusMapperTest {
   
     stationApparatus = ApparatusMapper.apparatusEntityToApparatus(apparatusEntity);
     assertAll("Apparatus entity mapped to apparatus", 
-      () -> assertEquals("A123", stationApparatus.getUnitDesignator(), "Unit designator not mapped correctly"),
+      () -> assertEquals("E408", stationApparatus.getUnitDesignator(), "Unit designator not mapped correctly"),
       () -> assertEquals("Engine", stationApparatus.getApparatusType(), "Apparatus type not mapped correctly"),
       () -> assertEquals("Suppression", stationApparatus.getApparatusCategory(), "Apparatus category not mapped correctly"),
-      () -> assertEquals(1999, stationApparatus.getYear(), "Year not mapped correctly"),
+      () -> assertEquals(2023, stationApparatus.getYear(), "Year not mapped correctly"),
       () -> assertEquals("Ford", stationApparatus.getMake(), "Make not mapped correctly"),
       () -> assertEquals("Fire Engine", stationApparatus.getModel(), "Model not mapped correctly"),
       () -> assertFalse(stationApparatus.getIsReserved(), "Is reserved flag not mapped correctly"));
