@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "county_apparatus", schema = "ffx_fire_ops")
+@Table(name = "apparatus", schema = "ffx_fire_ops")
 public class ApparatusEntity {
 
   @Id

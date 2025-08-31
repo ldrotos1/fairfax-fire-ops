@@ -17,7 +17,7 @@ CREATE TABLE ffx_fire_ops.department
 );
 
 -- Create the station table --
-CREATE TABLE ffx_fire_ops.county_station
+CREATE TABLE ffx_fire_ops.station
 (
     station_designator integer,
     station_number integer NOT NULL UNIQUE,
@@ -52,7 +52,7 @@ CREATE TABLE ffx_fire_ops.first_due_area
     first_due_area geometry(Polygon,4326) NOT NULL,
     PRIMARY KEY (station_designator),
     CONSTRAINT station_fk FOREIGN KEY (station_designator)
-        REFERENCES ffx_fire_ops.county_station (station_designator) MATCH SIMPLE
+        REFERENCES ffx_fire_ops.station (station_designator) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE CASCADE
 );
@@ -76,7 +76,7 @@ CREATE TABLE ffx_fire_ops.apparatus_type
 );
 
 -- Create the apparatus table --
-CREATE TABLE ffx_fire_ops.county_apparatus
+CREATE TABLE ffx_fire_ops.apparatus
 (
     unit_designator character varying(12) NOT NULL,
     apparatus_type_id integer NOT NULL,
@@ -92,7 +92,7 @@ CREATE TABLE ffx_fire_ops.county_apparatus
         ON UPDATE NO ACTION
         ON DELETE CASCADE,
     CONSTRAINT station_desig_fk FOREIGN KEY (station_designator)
-        REFERENCES ffx_fire_ops.county_station (station_designator) MATCH SIMPLE
+        REFERENCES ffx_fire_ops.station (station_designator) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE SET NULL,
     CONSTRAINT apparatus_type_id_fk FOREIGN KEY (apparatus_type_id)

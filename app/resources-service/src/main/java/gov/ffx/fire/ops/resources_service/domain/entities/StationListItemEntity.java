@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "county_station", schema = "ffx_fire_ops")
+@Table(name = "station", schema = "ffx_fire_ops")
 public class StationListItemEntity {
   
   @Id
