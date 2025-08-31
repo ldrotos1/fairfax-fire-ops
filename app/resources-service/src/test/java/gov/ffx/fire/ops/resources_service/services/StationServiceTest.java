@@ -1,6 +1,7 @@
 package gov.ffx.fire.ops.resources_service.services;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.eq;
@@ -19,10 +20,13 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import gov.ffx.fire.ops.resources_service.domain.entities.CountyStationEntity;
 import gov.ffx.fire.ops.resources_service.domain.entities.CountyStationListItemEntity;
+import gov.ffx.fire.ops.resources_service.domain.models.CountyStation;
+import gov.ffx.fire.ops.resources_service.domain.models.CountyStationApparatus;
 import gov.ffx.fire.ops.resources_service.domain.models.CountyStationListItem;
 import gov.ffx.fire.ops.resources_service.exceptions.StationDoesNotExistException;
 import gov.ffx.fire.ops.resources_service.repositories.CountyStationListItemRepository;
 import gov.ffx.fire.ops.resources_service.repositories.CountyStationRepository;
+import gov.ffx.fire.ops.resources_service.test_utilities.TestObjectClassLoader;
 
 @ExtendWith(MockitoExtension.class)
 public class StationServiceTest {
@@ -38,13 +42,37 @@ public class StationServiceTest {
   
   @Test
   @DisplayName("Test getting a county station")
-  void testGetCountyStation() {
-    CountyStationEntity station = CountyStationEntity.builder()
-      .stationDesignator(402)
-      .stationNumber(2)
-      .stationName("Test Station")
-      .build();
+  void testGetCountyStation() throws StationDoesNotExistException {
+    CountyStationEntity stationEntity = TestObjectClassLoader.loadClassFromJson("stationEntity.json", CountyStationEntity.class);
+    
+    when(countyStationRepo.findByStationDesignator(eq(401))).thenReturn(Optional.of(stationEntity));
+    CountyStation station = stationService.getCountyStation(401);
 
+    assertEquals(401, station.getStationDesignator(), "Station designator not mapped correctly");
+    assertEquals(1, station.getStationNumber(), "Station number not mapped correctly");
+    assertEquals("Sample Fire Station", station.getStationName(), "Station name not mapped correctly");
+    assertEquals("Fire Department", station.getDepartment(), "Department name not mapped correctly");
+    assertEquals(401, station.getBattalion(), "Battalion number not mapped correctly");
+    assertEquals(400, station.getDivision(), "Division number not mapped correctly");
+    assertTrue(station.getIsVolunteer(), "Is volunteer not mapped correctly");
+    assertFalse(station.getIsBattalionHq(), "Is battalion HQ not mapped correctly");
+    assertTrue(station.getIsDivisionHq(), "Is division HQ not mapped correctly");
+    assertEquals("123 Main St", station.getAddress(), "Address not mapped correctly");
+    assertEquals("Anytown", station.getCity(), "City not mapped correctly");
+    assertEquals("12345", station.getZipCode(), "Zip code not mapped correctly");
+    assertEquals("70355599663", station.getPhoneNumber(), "Phone number not mapped correctly");
+    assertEquals("Urban", station.getDensity(), "Density not mapped correctly");
+    assertEquals("Water Rescue", station.getSpecialOps(), "Special ops not mapped correctly");
+    assertEquals(1, station.getApparatus().size(), "Apparatus number incorrect");
+    assertTrue(station.getApparatus().contains(CountyStationApparatus.builder()
+      .unitDesignator("E401")
+      .apparatusType("Engine")
+      .apparatusCategory("Supression")
+      .year(2001)
+      .make("Ford")
+      .model("Fire Engine")
+      .isReserved(false)
+      .build()));
   }
 
   @Test
