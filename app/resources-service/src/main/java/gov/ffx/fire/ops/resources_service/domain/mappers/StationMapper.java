@@ -4,22 +4,22 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
 
-import gov.ffx.fire.ops.resources_service.domain.entities.CountyStationEntity;
-import gov.ffx.fire.ops.resources_service.domain.entities.CountyStationListItemEntity;
-import gov.ffx.fire.ops.resources_service.domain.models.CountyStation;
-import gov.ffx.fire.ops.resources_service.domain.models.CountyStationListItem;
+import gov.ffx.fire.ops.resources_service.domain.entities.StationEntity;
+import gov.ffx.fire.ops.resources_service.domain.entities.StationListItemEntity;
+import gov.ffx.fire.ops.resources_service.domain.models.Station;
+import gov.ffx.fire.ops.resources_service.domain.models.StationListItem;
 
 @Component
 public class StationMapper {
 
   /**
-   * Converts a {@link CountyStationEntity} to a {@link CountyStation}
+   * Converts a {@link StationEntity} to a {@link Station}
    * 
    * @param stationEntity
    * @return
    */
-  public static CountyStation stationEntityToStation(CountyStationEntity stationEntity) {
-    return CountyStation.builder()
+  public static Station stationEntityToStation(StationEntity stationEntity) {
+    return Station.builder()
       .stationDesignator(stationEntity.getStationDesignator())
       .stationNumber(stationEntity.getStationNumber())
       .stationName(stationEntity.getStationName())
@@ -43,13 +43,13 @@ public class StationMapper {
   }
 
   /**
-   * Converts a {@link CountyStation} to a {@link CountyStationEntity}
+   * Converts a {@link Station} to a {@link StationEntity}
    * 
    * @param stationListItemEntity
    * @return
    */
-  public static CountyStationListItem  stationListItemEntityToStationListItem(CountyStationListItemEntity stationListItemEntity) {
-    return CountyStationListItem.builder()
+  public static StationListItem  stationListItemEntityToStationListItem(StationListItemEntity stationListItemEntity) {
+    return StationListItem.builder()
       .stationDesignator(stationListItemEntity.getStationDesignator())
       .stationName(stationListItemEntity.getStationName())
       .battalion(stationListItemEntity.getBattalion())

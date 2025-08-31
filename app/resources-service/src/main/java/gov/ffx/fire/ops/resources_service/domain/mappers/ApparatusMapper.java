@@ -1,12 +1,12 @@
 package gov.ffx.fire.ops.resources_service.domain.mappers;
 
-import gov.ffx.fire.ops.resources_service.domain.entities.CountyApparatusEntity;
-import gov.ffx.fire.ops.resources_service.domain.models.CountyStationApparatus;
+import gov.ffx.fire.ops.resources_service.domain.entities.ApparatusEntity;
+import gov.ffx.fire.ops.resources_service.domain.models.StationApparatus;
 
 public class ApparatusMapper {
 
-  public static CountyStationApparatus apparatusEntityToApparatus(CountyApparatusEntity apparatusEntity) {
-    return CountyStationApparatus.builder()
+  public static StationApparatus apparatusEntityToApparatus(ApparatusEntity apparatusEntity) {
+    return StationApparatus.builder()
       .unitDesignator(apparatusEntity.getUnitDesignator())
       .apparatusType(apparatusEntity.getApparatusType().getApparatusType())
       .apparatusCategory(apparatusEntity.getApparatusType().getApparatusCategory())

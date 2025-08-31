@@ -9,19 +9,19 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import gov.ffx.fire.ops.resources_service.domain.entities.CountyApparatusEntity;
-import gov.ffx.fire.ops.resources_service.domain.models.CountyStationApparatus;
+import gov.ffx.fire.ops.resources_service.domain.entities.ApparatusEntity;
+import gov.ffx.fire.ops.resources_service.domain.models.StationApparatus;
 import gov.ffx.fire.ops.resources_service.test_utilities.TestObjectClassLoader;
 
 public class ApparatusMapperTest {
 
-  CountyApparatusEntity apparatusEntity;
+  ApparatusEntity apparatusEntity;
 
-  CountyStationApparatus stationApparatus;
+  StationApparatus stationApparatus;
 
   @BeforeEach
   void setup() {
-    apparatusEntity = TestObjectClassLoader.loadClassFromJson("apparatusEntity.json", CountyApparatusEntity.class);
+    apparatusEntity = TestObjectClassLoader.loadClassFromJson("apparatusEntity.json", ApparatusEntity.class);
   }
 
   @Test

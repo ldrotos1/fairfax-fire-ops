@@ -7,43 +7,43 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import gov.ffx.fire.ops.resources_service.domain.entities.CountyStationEntity;
-import gov.ffx.fire.ops.resources_service.domain.entities.CountyStationListItemEntity;
+import gov.ffx.fire.ops.resources_service.domain.entities.StationEntity;
+import gov.ffx.fire.ops.resources_service.domain.entities.StationListItemEntity;
 import gov.ffx.fire.ops.resources_service.domain.mappers.StationMapper;
-import gov.ffx.fire.ops.resources_service.domain.models.CountyStation;
-import gov.ffx.fire.ops.resources_service.domain.models.CountyStationListItem;
+import gov.ffx.fire.ops.resources_service.domain.models.Station;
+import gov.ffx.fire.ops.resources_service.domain.models.StationListItem;
 import gov.ffx.fire.ops.resources_service.exceptions.StationDoesNotExistException;
-import gov.ffx.fire.ops.resources_service.repositories.CountyStationListItemRepository;
-import gov.ffx.fire.ops.resources_service.repositories.CountyStationRepository;
+import gov.ffx.fire.ops.resources_service.repositories.StationListItemRepository;
+import gov.ffx.fire.ops.resources_service.repositories.StationRepository;
 
 @Service
 public class StationService {
 
   @Autowired
-  private CountyStationRepository countyStationRepo;
+  private StationRepository stationRepo;
 
   @Autowired
-  private CountyStationListItemRepository countyStationListItemRepository;
+  private StationListItemRepository stationListItemRepository;
 
   /**
-   * Get a single county station by station designator
+   * Get a single station by station designator
    * 
    * @param stationDesignator
    * @return The station
    * @throws StationDoesNotExistException 
    */
-  public CountyStation getCountyStation(int stationDesignator) throws StationDoesNotExistException {
-    Optional<CountyStationEntity> stationEntity = countyStationRepo.findByStationDesignator(stationDesignator);
+  public Station getStation(int stationDesignator) throws StationDoesNotExistException {
+    Optional<StationEntity> stationEntity = stationRepo.findByStationDesignator(stationDesignator);
     return StationMapper.stationEntityToStation(stationEntity.orElseThrow(() -> new StationDoesNotExistException(stationDesignator)));
   }
 
   /**
-   * Get a list of all county stations
+   * Get a list of all stations
    * 
-   * @return A list of county stations
+   * @return A list of stations
    */
-  public List<CountyStationListItem> getCountyStationList() {
-    List<CountyStationListItemEntity> stationItemEntities = countyStationListItemRepository.findAll();
+  public List<StationListItem> getStationList() {
+    List<StationListItemEntity> stationItemEntities = stationListItemRepository.findAll();
     return stationItemEntities.stream()
       .map(StationMapper::stationListItemEntityToStationListItem)
       .collect(Collectors.toList());

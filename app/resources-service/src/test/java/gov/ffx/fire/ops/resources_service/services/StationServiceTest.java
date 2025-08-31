@@ -18,24 +18,24 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import gov.ffx.fire.ops.resources_service.domain.entities.CountyStationEntity;
-import gov.ffx.fire.ops.resources_service.domain.entities.CountyStationListItemEntity;
-import gov.ffx.fire.ops.resources_service.domain.models.CountyStation;
-import gov.ffx.fire.ops.resources_service.domain.models.CountyStationApparatus;
-import gov.ffx.fire.ops.resources_service.domain.models.CountyStationListItem;
+import gov.ffx.fire.ops.resources_service.domain.entities.StationEntity;
+import gov.ffx.fire.ops.resources_service.domain.entities.StationListItemEntity;
+import gov.ffx.fire.ops.resources_service.domain.models.Station;
+import gov.ffx.fire.ops.resources_service.domain.models.StationApparatus;
+import gov.ffx.fire.ops.resources_service.domain.models.StationListItem;
 import gov.ffx.fire.ops.resources_service.exceptions.StationDoesNotExistException;
-import gov.ffx.fire.ops.resources_service.repositories.CountyStationListItemRepository;
-import gov.ffx.fire.ops.resources_service.repositories.CountyStationRepository;
+import gov.ffx.fire.ops.resources_service.repositories.StationListItemRepository;
+import gov.ffx.fire.ops.resources_service.repositories.StationRepository;
 import gov.ffx.fire.ops.resources_service.test_utilities.TestObjectClassLoader;
 
 @ExtendWith(MockitoExtension.class)
 public class StationServiceTest {
 
   @Mock
-  private CountyStationRepository countyStationRepo;
+  private StationRepository stationRepo;
 
   @Mock
-  private CountyStationListItemRepository countyStationListItemRepository;
+  private StationListItemRepository stationListItemRepository;
 
   @InjectMocks
   private StationService stationService;
@@ -43,10 +43,10 @@ public class StationServiceTest {
   @Test
   @DisplayName("Test getting a county station")
   void testGetCountyStation() throws StationDoesNotExistException {
-    CountyStationEntity stationEntity = TestObjectClassLoader.loadClassFromJson("stationEntity.json", CountyStationEntity.class);
+    StationEntity stationEntity = TestObjectClassLoader.loadClassFromJson("stationEntity.json", StationEntity.class);
     
-    when(countyStationRepo.findByStationDesignator(eq(401))).thenReturn(Optional.of(stationEntity));
-    CountyStation station = stationService.getCountyStation(401);
+    when(stationRepo.findByStationDesignator(eq(401))).thenReturn(Optional.of(stationEntity));
+    Station station = stationService.getStation(401);
 
     assertEquals(401, station.getStationDesignator(), "Station designator not mapped correctly");
     assertEquals(1, station.getStationNumber(), "Station number not mapped correctly");
@@ -64,7 +64,7 @@ public class StationServiceTest {
     assertEquals("Urban", station.getDensity(), "Density not mapped correctly");
     assertEquals("Water Rescue", station.getSpecialOps(), "Special ops not mapped correctly");
     assertEquals(1, station.getApparatus().size(), "Apparatus number incorrect");
-    assertTrue(station.getApparatus().contains(CountyStationApparatus.builder()
+    assertTrue(station.getApparatus().contains(StationApparatus.builder()
       .unitDesignator("E401")
       .apparatusType("Engine")
       .apparatusCategory("Supression")
@@ -78,10 +78,10 @@ public class StationServiceTest {
   @Test
   @DisplayName("Test trying to get a county station that does not exist")
   void testGetCountyStationThatDoesNotExist() {
-    when(countyStationRepo.findByStationDesignator(eq(490))).thenReturn(Optional.empty());
+    when(stationRepo.findByStationDesignator(eq(490))).thenReturn(Optional.empty());
     
     Exception error = assertThrows(StationDoesNotExistException.class, () -> {
-      stationService.getCountyStation(490);
+      stationService.getStation(490);
     });
     assertTrue(error.getMessage().contains("Station number 490 does not exist"));
   }
@@ -90,41 +90,41 @@ public class StationServiceTest {
   @DisplayName("Test getting station list items")
   void testGetCountyStationList() {
     
-    List<CountyStationListItemEntity> entities = new ArrayList<>();
-    entities.add(CountyStationListItemEntity.builder()
+    List<StationListItemEntity> entities = new ArrayList<>();
+    entities.add(StationListItemEntity.builder()
       .stationDesignator(413)
       .stationName("Test station 13")
       .battalion(401)
       .build());
-    entities.add(CountyStationListItemEntity.builder()
+    entities.add(StationListItemEntity.builder()
       .stationDesignator(409)
       .stationName("Test station 9")
       .battalion(402)
       .build());
-    entities.add(CountyStationListItemEntity.builder()
+    entities.add(StationListItemEntity.builder()
       .stationDesignator(420)
       .stationName("Test station 20")
       .battalion(403)
       .build());
 
-    when(countyStationListItemRepository.findAll()).thenReturn(entities);
-    List<CountyStationListItem> stations = stationService.getCountyStationList();
+    when(stationListItemRepository.findAll()).thenReturn(entities);
+    List<StationListItem> stations = stationService.getStationList();
 
     assertEquals(3, stations.size(), "Station list item list length invalid");
    
-    assertTrue(stations.contains(CountyStationListItem.builder()
+    assertTrue(stations.contains(StationListItem.builder()
       .stationDesignator(413)
       .stationName("Test station 13")
       .battalion(401)
       .build()), "Station list item is missing station 13");
     
-    assertTrue(stations.contains(CountyStationListItem.builder()
+    assertTrue(stations.contains(StationListItem.builder()
       .stationDesignator(409)
       .stationName("Test station 9")
       .battalion(402)
       .build()), "Station list item is missing station 9");
 
-    assertTrue(stations.contains(CountyStationListItem.builder()
+    assertTrue(stations.contains(StationListItem.builder()
       .stationDesignator(420)
       .stationName("Test station 20")
       .battalion(403)

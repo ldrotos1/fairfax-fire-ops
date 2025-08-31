@@ -9,26 +9,26 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import gov.ffx.fire.ops.resources_service.domain.entities.CountyStationEntity;
-import gov.ffx.fire.ops.resources_service.domain.entities.CountyStationListItemEntity;
-import gov.ffx.fire.ops.resources_service.domain.models.CountyStation;
-import gov.ffx.fire.ops.resources_service.domain.models.CountyStationListItem;
+import gov.ffx.fire.ops.resources_service.domain.entities.StationEntity;
+import gov.ffx.fire.ops.resources_service.domain.entities.StationListItemEntity;
+import gov.ffx.fire.ops.resources_service.domain.models.Station;
+import gov.ffx.fire.ops.resources_service.domain.models.StationListItem;
 import gov.ffx.fire.ops.resources_service.test_utilities.TestObjectClassLoader;
 
 public class StationMapperTest {
 
-  CountyStationListItemEntity stationListItemEntity;
+  StationListItemEntity stationListItemEntity;
 
-  CountyStationEntity stationEntity;
+  StationEntity stationEntity;
  
-  CountyStationListItem stationListItem;
+  StationListItem stationListItem;
  
-  CountyStation station;
+  Station station;
 
   @BeforeEach
   void setup() {
-    stationListItemEntity = TestObjectClassLoader.loadClassFromJson("stationListItemEntity.json", CountyStationListItemEntity.class);
-    stationEntity = TestObjectClassLoader.loadClassFromJson("stationEntity.json", CountyStationEntity.class);
+    stationListItemEntity = TestObjectClassLoader.loadClassFromJson("stationListItemEntity.json", StationListItemEntity.class);
+    stationEntity = TestObjectClassLoader.loadClassFromJson("stationEntity.json", StationEntity.class);
   }
 
   @Test

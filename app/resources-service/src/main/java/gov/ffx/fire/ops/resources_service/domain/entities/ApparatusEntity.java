@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "county_apparatus", schema = "ffx_fire_ops")
-public class CountyApparatusEntity {
+public class ApparatusEntity {
 
   @Id
   @Column(name = "unit_designator")

@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @Builder
-public class CountyStationListItem {
+public class StationListItem {
   private int stationDesignator;
   private String stationName;
   private int battalion;

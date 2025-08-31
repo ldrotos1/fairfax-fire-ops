@@ -7,7 +7,7 @@ import lombok.Data;
 
 @Data
 @Builder
-public class CountyStation {
+public class Station {
   private int stationDesignator;
   private Integer stationNumber;
   private String stationName;
@@ -24,5 +24,5 @@ public class CountyStation {
   private String phoneNumber;
   private String density;
   private String specialOps;
-  private Set<CountyStationApparatus> apparatus;
+  private Set<StationApparatus> apparatus;
 }

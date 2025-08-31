@@ -22,7 +22,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "county_station", schema = "ffx_fire_ops")
-public class CountyStationEntity {
+public class StationEntity {
 
   @Id
   @Column(name = "station_designator")
@@ -40,7 +40,7 @@ public class CountyStationEntity {
   
 	@OneToMany( cascade = CascadeType.ALL, fetch = FetchType.EAGER )
 	@JoinColumn( name = "station_designator" )
-  private Set<CountyApparatusEntity> apparatus;
+  private Set<ApparatusEntity> apparatus;
 
   @Column(name = "battalion")
   private int battalion;
