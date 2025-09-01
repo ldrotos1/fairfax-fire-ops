@@ -5,7 +5,7 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import gov.ffx.fire.ops.resources_service.domain.entities.StationEntity;
+import gov.ffx.fire.ops.resources_service.entities.StationEntity;
 
 @Repository
 public interface StationRepository extends JpaRepository<StationEntity, Integer> {

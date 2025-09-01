@@ -9,8 +9,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import gov.ffx.fire.ops.resources_service.domain.entities.ApparatusEntity;
 import gov.ffx.fire.ops.models.apparatus.StationApparatus;
+import gov.ffx.fire.ops.resources_service.entities.ApparatusEntity;
+import gov.ffx.fire.ops.resources_service.mappers.ApparatusMapper;
 import gov.ffx.fire.ops.resources_service.test_utilities.TestObjectClassLoader;
 
 public class ApparatusMapperTest {

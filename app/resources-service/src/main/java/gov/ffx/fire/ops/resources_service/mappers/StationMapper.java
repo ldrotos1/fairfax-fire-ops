@@ -1,4 +1,4 @@
-package gov.ffx.fire.ops.resources_service.domain.mappers;
+package gov.ffx.fire.ops.resources_service.mappers;
 
 import java.util.stream.Collectors;
 
@@ -6,8 +6,8 @@ import org.springframework.stereotype.Component;
 
 import gov.ffx.fire.ops.models.station.Station;
 import gov.ffx.fire.ops.models.station.StationListItem;
-import gov.ffx.fire.ops.resources_service.domain.entities.StationEntity;
-import gov.ffx.fire.ops.resources_service.domain.entities.StationListItemEntity;
+import gov.ffx.fire.ops.resources_service.entities.StationEntity;
+import gov.ffx.fire.ops.resources_service.entities.StationListItemEntity;
 
 
 @Component

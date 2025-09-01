@@ -9,10 +9,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import gov.ffx.fire.ops.resources_service.domain.entities.StationEntity;
-import gov.ffx.fire.ops.resources_service.domain.entities.StationListItemEntity;
 import gov.ffx.fire.ops.models.station.Station;
 import gov.ffx.fire.ops.models.station.StationListItem;
+import gov.ffx.fire.ops.resources_service.entities.StationEntity;
+import gov.ffx.fire.ops.resources_service.entities.StationListItemEntity;
+import gov.ffx.fire.ops.resources_service.mappers.StationMapper;
 import gov.ffx.fire.ops.resources_service.test_utilities.TestObjectClassLoader;
 
 public class StationMapperTest {

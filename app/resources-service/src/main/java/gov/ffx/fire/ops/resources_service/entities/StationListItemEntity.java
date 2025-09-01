@@ -1,4 +1,4 @@
-package gov.ffx.fire.ops.resources_service.domain.entities;
+package gov.ffx.fire.ops.resources_service.entities;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

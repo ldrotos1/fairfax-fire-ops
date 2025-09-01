@@ -9,10 +9,10 @@ import org.springframework.stereotype.Service;
 
 import gov.ffx.fire.ops.models.station.Station;
 import gov.ffx.fire.ops.models.station.StationListItem;
-import gov.ffx.fire.ops.resources_service.domain.entities.StationEntity;
-import gov.ffx.fire.ops.resources_service.domain.entities.StationListItemEntity;
-import gov.ffx.fire.ops.resources_service.domain.mappers.StationMapper;
+import gov.ffx.fire.ops.resources_service.entities.StationEntity;
+import gov.ffx.fire.ops.resources_service.entities.StationListItemEntity;
 import gov.ffx.fire.ops.resources_service.exceptions.StationDoesNotExistException;
+import gov.ffx.fire.ops.resources_service.mappers.StationMapper;
 import gov.ffx.fire.ops.resources_service.repositories.StationListItemRepository;
 import gov.ffx.fire.ops.resources_service.repositories.StationRepository;
 
