@@ -1,7 +1,7 @@
 package gov.ffx.fire.ops.resources_service.domain.mappers;
 
 import gov.ffx.fire.ops.resources_service.domain.entities.ApparatusEntity;
-import gov.ffx.fire.ops.resources_service.domain.models.StationApparatus;
+import gov.ffx.fire.ops.models.apparatus.StationApparatus;;
 
 public class ApparatusMapper {
 

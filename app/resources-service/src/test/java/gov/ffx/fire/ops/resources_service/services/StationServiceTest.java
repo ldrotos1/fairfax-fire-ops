@@ -18,11 +18,11 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import gov.ffx.fire.ops.models.station.Station;
+import gov.ffx.fire.ops.models.station.StationListItem;
+import gov.ffx.fire.ops.models.apparatus.StationApparatus;
 import gov.ffx.fire.ops.resources_service.domain.entities.StationEntity;
 import gov.ffx.fire.ops.resources_service.domain.entities.StationListItemEntity;
-import gov.ffx.fire.ops.resources_service.domain.models.Station;
-import gov.ffx.fire.ops.resources_service.domain.models.StationApparatus;
-import gov.ffx.fire.ops.resources_service.domain.models.StationListItem;
 import gov.ffx.fire.ops.resources_service.exceptions.StationDoesNotExistException;
 import gov.ffx.fire.ops.resources_service.repositories.StationListItemRepository;
 import gov.ffx.fire.ops.resources_service.repositories.StationRepository;

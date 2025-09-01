@@ -1,4 +1,4 @@
-package gov.ffx.fire.ops.resources_service.domain.models;
+package gov.ffx.fire.ops.models.apparatus;
 
 import lombok.Builder;
 import lombok.Data;

@@ -1,7 +1,8 @@
-package gov.ffx.fire.ops.resources_service.domain.models;
+package gov.ffx.fire.ops.models.station;
 
 import java.util.Set;
 
+import gov.ffx.fire.ops.models.apparatus.StationApparatus;
 import lombok.Builder;
 import lombok.Data;
 

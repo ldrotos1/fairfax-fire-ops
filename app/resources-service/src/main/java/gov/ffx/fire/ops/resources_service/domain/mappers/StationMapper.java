@@ -4,10 +4,11 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
 
+import gov.ffx.fire.ops.models.station.Station;
+import gov.ffx.fire.ops.models.station.StationListItem;
 import gov.ffx.fire.ops.resources_service.domain.entities.StationEntity;
 import gov.ffx.fire.ops.resources_service.domain.entities.StationListItemEntity;
-import gov.ffx.fire.ops.resources_service.domain.models.Station;
-import gov.ffx.fire.ops.resources_service.domain.models.StationListItem;
+
 
 @Component
 public class StationMapper {
